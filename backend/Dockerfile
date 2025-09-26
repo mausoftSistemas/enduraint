@@ -1,6 +1,17 @@
 # Dockerfile para Endurain Backend
 # Usar imagen base más genérica para evitar problemas de rate limit
+
+# Argumentos de build para autenticación Docker Hub
+ARG DOCKER_USERNAME
+ARG DOCKER_PASSWORD
+
 FROM python:3.12-slim
+
+# Configurar autenticación Docker Hub si se proporcionan credenciales
+RUN if [ -n "$DOCKER_USERNAME" ] && [ -n "$DOCKER_PASSWORD" ]; then \
+        mkdir -p /root/.docker && \
+        echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(echo -n "$DOCKER_USERNAME:$DOCKER_PASSWORD" | base64)\"}}}" > /root/.docker/config.json; \
+    fi
 
 # Configurar variables de entorno para optimizar el build
 ENV PYTHONUNBUFFERED=1 \
