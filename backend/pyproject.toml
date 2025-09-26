@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "endurain"
+version = "0.14.0"
+description = "Endurain API for the Endurain app"
+authors = ["João Vitória Silva <8648976+joaovitoriasilva@users.noreply.github.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.6"
+uvicorn = "^0.34.0"
+python-dotenv = "^1.0.1"
+sqlalchemy = "^2.0.36"
+apscheduler = "^3.11.0"
+requests = "^2.32.3"
+stravalib = "^2.1"
+opentelemetry-sdk = "^1.25.0"
+opentelemetry-instrumentation-fastapi = "^0.49b0"
+opentelemetry-exporter-otlp = "^1.25.0"
+python-multipart = "^0.0.20"
+gpxpy = "^1.6.2"
+tcxreader = "^0.4.11"
+alembic = "^1.14.0"
+joserfc = "^1.0.1"
+bcrypt = "^4.2.1"
+mysqlclient = "^2.2.6"
+fitdecode = "^0.10.0"
+numpy = "^2.2.1"
+geopy = "^2.4.1"
+flexparser = "^0.4"
+pydantic-core = "^2.27.2"
+importlib-metadata = "^8.5.0"
+garminconnect = "^0.2.25"
+websockets = "^14.1"
+timezonefinder = "^6.5.7"
+psycopg = {extras = ["binary", "pool"], version = "^3.2.3"}
+poetry = "^2.0.0"
+user-agents = "^2.2.0"
+pydantic = {extras = ["email"], version = "^2.11.3"}
+garth = "^0.5.16"
+apprise = "^1.8.0"
+pyotp = "^2.9.0"
+qrcode = {extras = ["pil"], version = "^8.2"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

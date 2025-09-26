@@ -1,0 +1,13 @@
+{
+  "title": "Equipo",
+  "buttonAddGear": "Añadir equipo",
+  "subTitleSearchGearByNickname": "Buscar equipo por apodo",
+  "placeholderSearchGearByNickname": "Apodo",
+  "buttonSearchGear": "Buscar equipo",
+  "displayUserNumberOfGears1": "Hay un total de ",
+  "displayUserNumberOfGears2": " equipo(s) (",
+  "displayUserNumberOfGears3": " cargado):",
+  "successGearDeleted": "Equipo eliminado correctamente",
+  "errorGearNotFound": "No se encontró el equipo",
+  "errorFetchingGears": "Error obteniendo equipos"
+}

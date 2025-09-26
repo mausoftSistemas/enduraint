@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # Backend API para producción
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: endurain_backend_prod
+    environment:
+      # Base de datos (usar variables de entorno externas)
+      DB_TYPE: ${DB_TYPE:-postgres}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      
+      # Seguridad (OBLIGATORIO cambiar en producción)
+      SECRET_KEY: ${SECRET_KEY}
+      FERNET_KEY: ${FERNET_KEY}
+      
+      # Configuración de la aplicación
+      ENDURAIN_HOST: ${ENDURAIN_HOST}
+      ENVIRONMENT: production
+      TZ: ${TZ:-UTC}
+      
+      # Directorios
+      BACKEND_DIR: /app
+      DATA_DIR: /app/data
+      LOGS_DIR: /app/logs
+      FILES_DIR: /app/data/activity_files
+      ACTIVITY_MEDIA_DIR: /app/data/activity_media
+      
+      # Email
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_USE_TLS: ${SMTP_USE_TLS:-true}
+      
+      # Geocoding
+      REVERSE_GEO_PROVIDER: ${REVERSE_GEO_PROVIDER:-nominatim}
+      REVERSE_GEO_RATE_LIMIT: ${REVERSE_GEO_RATE_LIMIT:-1}
+      GEOCODES_MAPS_API: ${GEOCODES_MAPS_API:-changeme}
+      
+      # Tracing
+      JAEGER_ENABLED: ${JAEGER_ENABLED:-false}
+      JAEGER_HOST: ${JAEGER_HOST:-}
+      JAEGER_PORT: ${JAEGER_PORT:-4317}
+      JAEGER_PROTOCOL: ${JAEGER_PROTOCOL:-http}
+      
+      # Integraciones externas
+      STRAVA_CLIENT_ID: ${STRAVA_CLIENT_ID:-}
+      STRAVA_CLIENT_SECRET: ${STRAVA_CLIENT_SECRET:-}
+      GARMIN_EMAIL: ${GARMIN_EMAIL:-}
+      GARMIN_PASSWORD: ${GARMIN_PASSWORD:-}
+    
+    volumes:
+      - backend_data:/app/data
+      - backend_logs:/app/logs
+    
+    ports:
+      - "8000:8000"
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    restart: unless-stopped
+    
+    # Configuración de recursos para producción
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+
+volumes:
+  backend_data:
+    driver: local
+  backend_logs:
+    driver: local

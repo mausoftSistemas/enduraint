@@ -1,0 +1,124 @@
+# Configuración de EasyPanel para Endurain
+# Este archivo define la configuración para desplegar en EasyPanel
+
+name: endurain-backend
+description: "Endurain - Aplicación de entrenamiento deportivo (Backend API)"
+
+# Configuración del servicio principal
+services:
+  - name: backend
+    type: app
+    source:
+      type: github
+      repo: tu-usuario/endurain-coach-student
+      branch: main
+      path: /backend
+    
+    # Configuración de build
+    build:
+      type: dockerfile
+      dockerfile: Dockerfile
+    
+    # Puerto expuesto
+    port: 8000
+    
+    # Variables de entorno requeridas
+    env:
+      # Base de datos (conectar con servicio PostgreSQL de EasyPanel)
+      - name: DB_TYPE
+        value: postgres
+      - name: DB_HOST
+        value: ${POSTGRES_HOST}
+      - name: DB_PORT
+        value: ${POSTGRES_PORT}
+      - name: DB_DATABASE
+        value: ${POSTGRES_DB}
+      - name: DB_USER
+        value: ${POSTGRES_USER}
+      - name: DB_PASSWORD
+        value: ${POSTGRES_PASSWORD}
+      
+      # Seguridad (configurar en EasyPanel)
+      - name: SECRET_KEY
+        value: ${SECRET_KEY}
+      - name: FERNET_KEY
+        value: ${FERNET_KEY}
+      
+      # Configuración de la aplicación
+      - name: ENDURAIN_HOST
+        value: ${APP_URL}
+      - name: ENVIRONMENT
+        value: production
+      - name: TZ
+        value: UTC
+      
+      # Directorios
+      - name: BACKEND_DIR
+        value: /app
+      - name: DATA_DIR
+        value: /app/data
+      - name: LOGS_DIR
+        value: /app/logs
+      - name: FILES_DIR
+        value: /app/data/activity_files
+      - name: ACTIVITY_MEDIA_DIR
+        value: /app/data/activity_media
+    
+    # Volúmenes persistentes
+    volumes:
+      - name: data
+        path: /app/data
+        size: 10GB
+      - name: logs
+        path: /app/logs
+        size: 1GB
+    
+    # Health check
+    healthcheck:
+      path: /api/v1/health
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    
+    # Configuración de recursos
+    resources:
+      memory: 1GB
+      cpu: 0.5
+    
+    # Configuración de escalado
+    scaling:
+      min: 1
+      max: 3
+      target_cpu: 70
+
+# Base de datos PostgreSQL
+databases:
+  - name: postgres
+    type: postgresql
+    version: "15"
+    storage: 20GB
+    
+# Variables de entorno globales
+env:
+  # Estas deben configurarse en EasyPanel
+  - name: SECRET_KEY
+    description: "Clave secreta para JWT (generar con openssl rand -hex 32)"
+    required: true
+  - name: FERNET_KEY
+    description: "Clave Fernet para encriptación"
+    required: true
+  - name: SMTP_HOST
+    description: "Servidor SMTP para emails (opcional)"
+    required: false
+  - name: SMTP_USERNAME
+    description: "Usuario SMTP (opcional)"
+    required: false
+  - name: SMTP_PASSWORD
+    description: "Contraseña SMTP (opcional)"
+    required: false
+  - name: STRAVA_CLIENT_ID
+    description: "Client ID de Strava (opcional)"
+    required: false
+  - name: STRAVA_CLIENT_SECRET
+    description: "Client Secret de Strava (opcional)"
+    required: false
