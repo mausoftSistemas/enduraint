@@ -10,7 +10,7 @@ services:
     type: app
     source:
       type: github
-      repo: tu-usuario/endurain-coach-student
+      repo: mausoftSistemas/enduraint
       branch: main
       path: /backend
     
