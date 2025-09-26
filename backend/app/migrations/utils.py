@@ -1,13 +1,12 @@
 from sqlalchemy.orm import Session
 
-import migrations.crud as migrations_crud
-import migrations.migration_1 as migrations_migration_1
-import migrations.migration_2 as migrations_migration_2
-import migrations.migration_3 as migrations_migration_3
-import migrations.migration_4 as migrations_migration_4
-import migrations.migration_5 as migrations_migration_5
-
-import core.logger as core_logger
+from app.migrations import crud as migrations_crud
+from app.migrations import migration_1 as migrations_migration_1
+from app.migrations import migration_2 as migrations_migration_2
+from app.migrations import migration_3 as migrations_migration_3
+from app.migrations import migration_4 as migrations_migration_4
+from app.migrations import migration_5 as migrations_migration_5
+from app.core import logger as core_logger
 
 
 def check_migrations_not_executed(db: Session):

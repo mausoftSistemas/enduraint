@@ -51,7 +51,7 @@ RUN mkdir -p \
     && chmod -R 755 /app/data /app/logs
 
 # Establecer variables de entorno por defecto
-ENV PYTHONPATH=/app/app \
+ENV PYTHONPATH=/app \
     BACKEND_DIR=/app \
     DATA_DIR=/app/data \
     LOGS_DIR=/app/logs \

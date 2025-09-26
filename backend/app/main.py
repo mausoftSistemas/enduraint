@@ -7,23 +7,23 @@ from fastapi.staticfiles import StaticFiles
 from alembic.config import Config
 from alembic import command
 
-import core.logger as core_logger
-import core.config as core_config
-import core.scheduler as core_scheduler
-import core.tracing as core_tracing
-import core.migrations as core_migrations
+from app.core import logger as core_logger
+from app.core import config as core_config
+from app.core import scheduler as core_scheduler
+from app.core import tracing as core_tracing
+from app.core import migrations as core_migrations
 
-import garmin.activity_utils as garmin_activity_utils
-import garmin.health_utils as garmin_health_utils
+from app.garmin import activity_utils as garmin_activity_utils
+from app.garmin import health_utils as garmin_health_utils
 
-import session.schema as session_schema
+from app.session import schema as session_schema
 
-import strava.activity_utils as strava_activity_utils
-import strava.utils as strava_utils
+from app.strava import activity_utils as strava_activity_utils
+from app.strava import utils as strava_utils
 
-import password_reset_tokens.utils as password_reset_tokens_utils
+from app.password_reset_tokens import utils as password_reset_tokens_utils
 
-from core.routes import router as api_router
+from app.core.routes import router as api_router
 
 
 async def startup_event():

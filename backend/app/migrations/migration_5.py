@@ -1,12 +1,9 @@
 from sqlalchemy.orm import Session
 
-import activities.activity_media.crud as activity_media_crud
-
-import core.logger as core_logger
-
-import migrations.crud as migrations_crud
-
-import users.user.crud as user_crud
+from app.activities.activity_media import crud as activity_media_crud
+from app.core import logger as core_logger
+from app.migrations import crud as migrations_crud
+from app.users.user import crud as user_crud
 
 
 def process_migration_5(db: Session):
