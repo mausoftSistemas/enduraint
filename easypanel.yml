@@ -18,9 +18,6 @@ services:
     build:
       type: dockerfile
       dockerfile: Dockerfile
-      registry:
-        username: ${DOCKER_USERNAME}
-        password: ${DOCKER_PASSWORD}
 
     
     # Puerto expuesto
