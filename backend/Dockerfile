@@ -1,6 +1,6 @@
 # Dockerfile para Endurain Backend
-# Usar una imagen base más específica y estable
-FROM python:3.12.7-slim-bookworm
+# Usar imagen base más genérica para evitar problemas de rate limit
+FROM python:3.12-slim
 
 # Configurar variables de entorno para optimizar el build
 ENV PYTHONUNBUFFERED=1 \
