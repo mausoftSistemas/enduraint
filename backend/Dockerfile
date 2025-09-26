@@ -1,7 +1,7 @@
 # Dockerfile para Endurain Backend
 # Usar imagen base de Microsoft Container Registry para evitar problemas de rate limit
-
-FROM mcr.microsoft.com/python:3.12-slim
+# Usando la imagen oficial de Python 3.12 de Microsoft Dev Containers
+FROM mcr.microsoft.com/devcontainers/python:3.12-bookworm
 
 # Configurar variables de entorno para optimizar el build
 ENV PYTHONUNBUFFERED=1 \
