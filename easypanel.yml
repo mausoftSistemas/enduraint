@@ -18,10 +18,7 @@ services:
     build:
       type: dockerfile
       dockerfile: Dockerfile
-      # Argumentos de build para autenticación Docker Hub
-      args:
-        DOCKER_USERNAME: ${DOCKER_USERNAME}
-        DOCKER_PASSWORD: ${DOCKER_PASSWORD}
+
     
     # Puerto expuesto
     port: 8000
@@ -68,11 +65,7 @@ services:
       - name: ACTIVITY_MEDIA_DIR
         value: /app/data/activity_media
       
-      # Credenciales Docker Hub para evitar rate limits
-      - name: DOCKER_USERNAME
-        value: ${DOCKER_USERNAME}
-      - name: DOCKER_PASSWORD
-        value: ${DOCKER_PASSWORD}
+
     
     # Volúmenes persistentes
     volumes:
