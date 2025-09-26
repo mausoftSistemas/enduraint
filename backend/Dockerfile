@@ -5,7 +5,7 @@
 ARG DOCKER_USERNAME
 ARG DOCKER_PASSWORD
 
-FROM python:3.12-slim
+FROM ghcr.io/python/cpython:3.12-slim
 
 # Configurar autenticación Docker Hub si se proporcionan credenciales
 RUN if [ -n "$DOCKER_USERNAME" ] && [ -n "$DOCKER_PASSWORD" ]; then \
